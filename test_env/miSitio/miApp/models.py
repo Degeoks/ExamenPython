@@ -9,6 +9,7 @@ class Usuario(models.Model):
     nombreUsuario = models.CharField(max_length=25)
     apellidosUsuario = models.CharField(max_length=50)
     fechaNacimiento = models.DateField()
+    miembroStaff = models.BooleanField(default=False)
     
     def __str__(self):
         return self.nombreUsuario + " " + self.apellidosUsuario
@@ -28,7 +29,6 @@ class UsuarioListaCompra(models.Model):
 class Producto(models.Model):
     codigoProducto = models.CharField(primary_key=True, max_length=14)
     nombreProducto = models.CharField(max_length=25)
-    costoProducto = models.PositiveIntegerField()
     notasAdicionales = models.CharField(max_length=50)
 
     def __str__(self):
@@ -75,3 +75,8 @@ class Tienda(models.Model):
 
     def __str__(self):
         return self.nombreTienda + " " + self.nombreSucursal
+
+class ProductoTienda(models.Model):
+    codigoProducto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    codigoTienda = models.ForeignKey(Tienda, on_delete=models.CASCADE)
+    costoProducto = models.PositiveIntegerField(default=0)

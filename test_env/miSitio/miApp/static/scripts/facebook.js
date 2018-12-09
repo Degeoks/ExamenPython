@@ -21,7 +21,6 @@ window.fbAsyncInit = function() {
 
 function statusChangeCallback(response){
     if(response.status === 'connected'){
-        console.log('Logged');
         receiveInfo();
     }else{
         console.log('Not Logged')
@@ -40,7 +39,9 @@ function receiveInfo(){
         'GET',
         {"fields":"id,first_name,last_name"},
         function(response) {
-            console.log(response.first_name+response.last_name)
+            var nombreUsuario = response.first_name+" "+response.last_name;
+            var sesion = document.getElementById("usuario");
+            document.write(nombreUsuario);
         }
     );
 }
